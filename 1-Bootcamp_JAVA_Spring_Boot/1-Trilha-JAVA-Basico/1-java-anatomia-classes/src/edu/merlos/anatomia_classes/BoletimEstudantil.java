@@ -4,7 +4,7 @@ public class BoletimEstudantil { // explicacoes sobre identacao
     
     public static void main(String[] args) { // digitar main + ctrl e espaco
          
-        int mediaFinal = 6;
+        int mediaFinal = 6; // identado
 		if (mediaFinal < 6)
 			System.out.println("REPROVADO");
 		else if (mediaFinal == 6)
