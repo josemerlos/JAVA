@@ -2,6 +2,7 @@ package com.example.first_spring_app;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Profile;
 
 @SpringBootApplication
 public class FirstSpringAppApplication {
@@ -11,3 +12,8 @@ public class FirstSpringAppApplication {
 	}
 
 }
+
+
+
+
+//O Tomcat , desenvolvido pela Fundação Apache, permite a execução de aplicações para web.
