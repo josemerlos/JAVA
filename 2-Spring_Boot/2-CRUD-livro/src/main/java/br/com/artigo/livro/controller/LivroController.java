@@ -5,7 +5,9 @@ import br.com.artigo.livro.entity.Categoria;
 import br.com.artigo.livro.entity.Livro;
 import br.com.artigo.livro.entity.Modelo;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Arrays;
@@ -21,6 +23,14 @@ public class LivroController {
         Livro livro = new Livro(123L, "Controller - Spring", 1, "Vitor", Categoria.INFORMATICA, Modelo.EBOOK);
 
         return Arrays.asList(livro, livro, livro);
+
+
+    }
+
+
+    @ResponseBody
+    @RequestMapping(path = "/livros", method = RequestMethod.POST)
+    public void salvar(@RequestBody Livro livro) { // recebe um livro como parametro para inserir na base de dados -- o request body para que forneca um objeto de dominio, permitindo a desserializacao automatica do objeto de entrada  em um objeto java, No caso, vamos receber um objeto JSON que reflete nossa entidade e desserializar para a entidade Livro (parâmetro de entrada do  métod
 
 
     }
