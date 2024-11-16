@@ -3,16 +3,13 @@ package br.com.artigo.livro.controller;
 
 import br.com.artigo.livro.controller.dto.LivroDTO;
 import br.com.artigo.livro.controller.dto.LivroFormDTO;
-import br.com.artigo.livro.entity.Categoria;
 import br.com.artigo.livro.entity.Livro;
-import br.com.artigo.livro.entity.Modelo;
 import br.com.artigo.livro.repository.LivroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
 
 @RestController    //para o Spring encontrar a classe e fazer o gerenciamento para que ela receba requisições e envie a resposta ao usuário.
@@ -44,7 +41,7 @@ public class LivroController {
     //@ResponseBody
     @Transactional //é usada para definir os requisitos da transação
     @PostMapping
-    public void salvar(@RequestBody LivroFormDTO form) { // recebe um livro como parametro para inserir na base de dados -- o request body para que forneca um objeto de dominio, permitindo a desserializacao automatica do objeto de entrada  em um objeto java, No caso, vamos receber um objeto JSON que reflete nossa entidade e desserializar para a entidade Livro (parâmetro de entrada do  métod
+    public LivroDTO salvar(@RequestBody LivroFormDTO form) { // recebe um livro como parametro para inserir na base de dados -- o request body para que forneca um objeto de dominio, permitindo a desserializacao automatica do objeto de entrada  em um objeto java, No caso, vamos receber um objeto JSON que reflete nossa entidade e desserializar para a entidade Livro (parâmetro de entrada do  métod
         Livro livro = form.converter();
         livroRepository.save(livro);
         return new LivroDTO(livro);
