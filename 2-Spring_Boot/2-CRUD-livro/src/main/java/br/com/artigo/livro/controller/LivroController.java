@@ -1,6 +1,8 @@
 package br.com.artigo.livro.controller;
 
 
+import br.com.artigo.livro.controller.dto.LivroDTO;
+import br.com.artigo.livro.controller.dto.LivroFormDTO;
 import br.com.artigo.livro.entity.Categoria;
 import br.com.artigo.livro.entity.Livro;
 import br.com.artigo.livro.entity.Modelo;
@@ -30,10 +32,10 @@ public class LivroController {
 
     //@ResponseBody //Como não queremos retornar uma página para o navegador, precisamos utilizar a anotação @ResponseBody. Ela é responsável por informa nosso @Controller que o objeto retornado é serializado automaticamente em JSON e passado de volta para o objeto HttpResponse.
     @GetMapping
-    public List<Livro> listar(){
+    public List<LivroDTO> listar(){
 
         List<Livro> livros = livroRepository.findAll();
-        return livros;
+        return LivroDTO.converter(livros);
 
 
     }
@@ -42,14 +44,18 @@ public class LivroController {
     //@ResponseBody
     @Transactional //é usada para definir os requisitos da transação
     @PostMapping
-    public void salvar(@RequestBody Livro livro) { // recebe um livro como parametro para inserir na base de dados -- o request body para que forneca um objeto de dominio, permitindo a desserializacao automatica do objeto de entrada  em um objeto java, No caso, vamos receber um objeto JSON que reflete nossa entidade e desserializar para a entidade Livro (parâmetro de entrada do  métod
-        livroRepository.save(livro); //chamamos o méto do save() que recebe nossa entidade (livro) como parâmetro e trata toda a lógica de negócio para persistir no banco.
+    public void salvar(@RequestBody LivroFormDTO form) { // recebe um livro como parametro para inserir na base de dados -- o request body para que forneca um objeto de dominio, permitindo a desserializacao automatica do objeto de entrada  em um objeto java, No caso, vamos receber um objeto JSON que reflete nossa entidade e desserializar para a entidade Livro (parâmetro de entrada do  métod
+        Livro livro = form.converter();
+        livroRepository.save(livro);
+        return new LivroDTO(livro);
+       // livroRepository.save(livro); //chamamos o méto do save() que recebe nossa entidade (livro) como parâmetro e trata toda a lógica de negócio para persistir no banco. parque em que estava fazendo sem a classe DTO
 
     }
 
 
 
-    //@ResponseBody
+
+    //@ResponseBodyg
     @Transactional
     @PutMapping
     public void atualizar(@RequestBody Livro livro) {
