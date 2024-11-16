@@ -1,6 +1,8 @@
 package br.com.artigo.livro.controller;
 
 
+import br.com.artigo.livro.controller.dto.AtualizaLivroFormDTO;
+import br.com.artigo.livro.controller.dto.DetalhesLivroDTO;
 import br.com.artigo.livro.controller.dto.LivroDTO;
 import br.com.artigo.livro.controller.dto.LivroFormDTO;
 import br.com.artigo.livro.entity.Livro;
@@ -11,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController    //para o Spring encontrar a classe e fazer o gerenciamento para que ela receba requisições e envie a resposta ao usuário.
 //To do método temos que anotar com @ResponseBody para indicar  ao Spring que nosso método não vai retornar uma página no response.
@@ -54,10 +57,24 @@ public class LivroController {
 
     //@ResponseBodyg
     @Transactional
-    @PutMapping
-    public void atualizar(@RequestBody Livro livro) {
-        livroRepository.save(livro);
+    @PutMapping("/{isbn}")
+    public DetalhesLivroDTO atualizar(@PathVariable Long isbn, @RequestBody AtualizaLivroFormDTO form) {
+
+        final Optional<Livro> optLivro = livroRepository.findById(isbn);
+
+        if(optLivro.isPresent()){
+            Livro livro = optLivro.get();
+            form.atualiza(livro);
+            livroRepository.save(livro);
+            return new DetalhesLivroDTO(livro);
+        }
+
+        System.out.println("Livro não encontrado");
+        return null;
     }
+
+
+
 
 
     //@ResponseBody
@@ -65,7 +82,11 @@ public class LivroController {
     @DeleteMapping("/{isbn}")
     public void deletar(@PathVariable Long isbn){ //Na ação de deletar, a boa prática é passar a variável que representa nosso registro como parte da URL e não como um parâmetro da requisição. Portanto, utilizaremos a anotação PathVariabler
 
-        livroRepository.deleteById(isbn);
+        final Optional<Livro> optLivro = livroRepository.findById(isbn);
+
+        if (optLivro.isPresent()) {
+            livroRepository.deleteById(isbn);
+        }
 
 
     }

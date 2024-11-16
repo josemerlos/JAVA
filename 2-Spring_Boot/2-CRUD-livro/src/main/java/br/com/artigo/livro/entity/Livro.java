@@ -31,8 +31,7 @@ public class Livro {
     @Enumerated(EnumType.STRING)
     private Modelo modelo;
 
-    public void setIsbn(Long isbn) {
-    }
+
 
     // @NoArgsConstructor — anotação do Lombok para gerar um construtor default (construtor vazio — requerido pelo hibernate). Caso não tenha o Lombok, crie um construtor default.
 
