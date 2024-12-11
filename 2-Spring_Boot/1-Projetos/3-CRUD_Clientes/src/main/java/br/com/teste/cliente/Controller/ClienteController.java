@@ -24,6 +24,11 @@ public class ClienteController {
         return clienteService.getAllClients();
     }
 
+    @GetMapping("/{jdbc}")
+    public List<Cliente> getClienteJdbcTemplate() {
+        return clienteService.getAllClients();
+    }
+
     @PostMapping
     public Cliente createClient(@RequestBody Cliente client) {
         return clienteService.createClient(client);

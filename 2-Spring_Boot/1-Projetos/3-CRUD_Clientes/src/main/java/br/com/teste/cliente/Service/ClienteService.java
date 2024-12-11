@@ -1,8 +1,10 @@
 package br.com.teste.cliente.Service;
 import java.util.List;
 
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
-
+import org.springframework.web.bind.annotation.GetMapping;
 
 import br.com.teste.cliente.Entity.Cliente;
 import br.com.teste.cliente.Repository.ClienteRepository;
@@ -16,6 +18,7 @@ public class ClienteService {
 
    
     private ClienteRepository clientRepository;
+    private  JdbcTemplate jdbcTemplate;
 
     public ClienteService(ClienteRepository clientRepository) {
         this.clientRepository = clientRepository;
@@ -43,6 +46,19 @@ public class ClienteService {
         clientRepository.deleteById(id);
     }
 
+
+
+
+     @GetMapping("/jdbc")
+    public List<Cliente> getClienteJdbcTemplate() {
+        String sql = "SELECT id,name,email FROM cliente";
+        RowMapper<Cliente> rowMapper = (rs, rowNum) -> new Cliente(
+            rs.getLong("id"),
+            rs.getString("name"),
+            rs.getString("email")
+        );
+        return jdbcTemplate.query(sql, rowMapper);
+    }
 
 
 
