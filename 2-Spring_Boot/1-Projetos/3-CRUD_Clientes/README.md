@@ -1,16 +1,26 @@
-Projeto  CRUD de Livros - Spring Boot - Spring Data JPA
 
 
-![image](https://github.com/user-attachments/assets/56416b03-216c-41c1-ae64-a18d58259e05)
+Utilizando Spring Boot, JDK 11 e maven:
+
+Criar um MS que seja responsável por Criar, alterar, excluir e consultar Clientes.
+
+Utilizar:
+
+Banco de Dados H2 (memoria)
+
+Criar queries usando:
+
+JDBCTemplate
+
+JPA Repository
+
+Consultas com queries Nativas
+
+Spring Security com basic authentication
+
+Implementar testes JUNIT
 
 
-Chamadas via postman:
-Sem DTO
-![image](https://github.com/user-attachments/assets/ad8eac8c-510c-4d48-81b0-ef1b90a19675)
 
 
-
-Apos boas praticas com DTO entre outras.
-![image](https://github.com/user-attachments/assets/a36654c8-2828-4b8a-88b1-355ed3da85a4)
-
-
+![image](https://github.com/user-attachments/assets/b9a3da2d-d012-40f0-bb19-97f65f1fc171)
