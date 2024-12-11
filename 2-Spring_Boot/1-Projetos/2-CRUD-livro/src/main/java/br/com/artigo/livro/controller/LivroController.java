@@ -20,7 +20,7 @@ import java.util.Optional;
 //
 //Pensando em facilitar e eliminar anotações recorrentes, o Spring disponibiliza a anotação @RestController . Está anotação é uma contém as anotações @Controller e @ResponseBody em sua definição. Com isso,
 // ao anotarmos nossa classe com @RestController já estamos declarando para o Spring que nossa classe é um controller e que todos os seus métodos retornam um objeto. (automaticamente serializado em JSON no Java).
-@RequestMapping("/livros") //Para dizer qual é o endereço que o Spring vai chamar o nosso méto do listar, utilizamos a anotação @RequestMapping.
+@RequestMapping("/livros") //Para dizer qual é o endereço que o Spring vai chamar o nossos métodos listar, utilizamos a anotação @RequestMapping.
 public class LivroController {
 
     @Autowired//No Spring, para marcar os pontos de injeção dentro da sua classe, você utiliza a anotação @Autowired.
