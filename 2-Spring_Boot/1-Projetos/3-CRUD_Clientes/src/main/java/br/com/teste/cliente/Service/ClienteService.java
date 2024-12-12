@@ -1,13 +1,19 @@
 package br.com.teste.cliente.Service;
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
+//import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+//import org.springframework.web.bind.annotation.GetMapping;
+//import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import br.com.teste.cliente.Entity.Cliente;
 import br.com.teste.cliente.Repository.ClienteRepository;
+import br.com.teste.cliente.Repository.ClienteRepositoryJDBC;
 
 
 
@@ -18,6 +24,7 @@ public class ClienteService {
 
    
     private ClienteRepository clientRepository;
+    private ClienteRepositoryJDBC clientRepositoryJDBC;
     private  JdbcTemplate jdbcTemplate;
 
     public ClienteService(ClienteRepository clientRepository) {
@@ -29,6 +36,7 @@ public class ClienteService {
     }
 
     public Cliente createClient(Cliente client) {
+       // System.out.println("ID do cliente: " + client.getId());
         return clientRepository.save(client);
     }
 
@@ -49,24 +57,29 @@ public class ClienteService {
 
 
 
-     @GetMapping("/jdbc")
+   
     public List<Cliente> getClienteJdbcTemplate() {
-        String sql = "SELECT id,name,email FROM cliente";
-        RowMapper<Cliente> rowMapper = (rs, rowNum) -> new Cliente(
-            rs.getLong("id"),
-            rs.getString("name"),
-            rs.getString("email")
-        );
-        return jdbcTemplate.query(sql, rowMapper);
+        return clientRepositoryJDBC.getClientesJdbcTemplate();
     }
 
 
 
-
+    //@ResponseStatus(HttpStatus.NOT_FOUND)
     public class ClienteNotFoundException extends RuntimeException {
         public ClienteNotFoundException(String message) {
             super(message);
         }
     }
+
+
+
+    @RestControllerAdvice
+    public class ErrorHandler {
+        @ExceptionHandler(ClienteNotFoundException.class)
+        public ResponseEntity<String> handleClienteNotFoundException(ClienteNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
     
 }

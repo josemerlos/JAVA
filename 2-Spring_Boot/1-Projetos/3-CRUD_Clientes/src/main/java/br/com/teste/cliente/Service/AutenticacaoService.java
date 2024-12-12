@@ -18,7 +18,7 @@ public class AutenticacaoService {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-                .antMatchers("/clientes/**").authenticated()  // Requer autenticação para "/clientes/**"
+                .antMatchers("/clientes/**").authenticated() 
             .and()
             .httpBasic()  
             .and()
