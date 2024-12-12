@@ -24,3 +24,8 @@ Implementar testes JUNIT
 
 
 ![image](https://github.com/user-attachments/assets/b9a3da2d-d012-40f0-bb19-97f65f1fc171)
+
+
+JUnit para testes unitários:
+
+![image](https://github.com/user-attachments/assets/f810ddcb-6871-4928-a16c-36e7406fb5c7)
