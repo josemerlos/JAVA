@@ -31,6 +31,11 @@ public class ClienteService {
         this.clientRepository = clientRepository;
     }
 
+
+    /*public List<Cliente> getAllClients() {
+        return clientRepository.findAllClientes();
+    }*/
+
     public List<Cliente> getAllClients() {
         return clientRepository.findAll();
     }
